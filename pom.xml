@@ -25,6 +25,10 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -60,14 +64,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <url>jdbc:mysql://localhost:3306/voting_management_system</url>
-                    <user>root</user>
-                    <password>yEJzmFrF03Nr</password>
-                </configuration>
-            </plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306/voting_management_system</url>
+					<user>root</user>
+					<password>yEJzmFrF03Nr</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

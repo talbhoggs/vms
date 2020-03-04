@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 @Entity(name="ELECTION")
 public class Election {
 	
-	@Column(name = "id")
+	@Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "name")
+	@Column(name = "NAME")
     @Size(max = 100, message = "field length must not exceed 100 characters")
 	private String name;
 	
@@ -56,10 +56,10 @@ public class Election {
 	public Boolean getIsActive() {
 		return isActive;
 	}
-	
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
+
 	@Override
 	public String toString() {
 		return "Election [id=" + id + ", name=" + name + "]";

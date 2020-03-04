@@ -12,19 +12,19 @@ import javax.validation.constraints.Size;
 @Entity(name="PARTY_LIST")
 public class PartyList {
 
-	@Column(name = "id")
+	@Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "name")
+	@Column(name = "NAME")
     @Size(max = 100, message = "field length must not exceed 100 characters")
 	private String name;
 	
-	@Column(name = "created", insertable = false)
+	@Column(name = "CREATED", insertable = false)
     private Timestamp created;
 
-	@Column(name = "last_updated", insertable = false)
+	@Column(name = "LAST_UPDATED", insertable = false)
     private Timestamp lastUpdated;
 
 	public Integer getId() {
