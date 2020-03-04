@@ -21,8 +21,8 @@ public class Election {
     @Size(max = 100, message = "field length must not exceed 100 characters")
 	private String name;
 	
-	@Column(name = "active")
-	private Boolean isActive;
+	@Column(name = "status")
+	private Boolean status;
 
 	@Column(name = "created", insertable = false)
     private Timestamp created;
@@ -53,11 +53,11 @@ public class Election {
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	public Boolean getIsActive() {
-		return isActive;
+	public Boolean getStatus() {
+		return status;
 	}
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	@Override
