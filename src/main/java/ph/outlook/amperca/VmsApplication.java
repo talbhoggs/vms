@@ -12,11 +12,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
+import ph.outlook.amperca.model.Candidate;
 import ph.outlook.amperca.model.Election;
 import ph.outlook.amperca.model.PartyList;
 import ph.outlook.amperca.model.Position;
 import ph.outlook.amperca.model.User;
 import ph.outlook.amperca.model.UserRole;
+import ph.outlook.amperca.repository.CandidateRepository;
 import ph.outlook.amperca.repository.ElectionRepository;
 import ph.outlook.amperca.repository.PartyListRepository;
 import ph.outlook.amperca.repository.PositionRepository;
@@ -48,17 +50,40 @@ public class VmsApplication {
 	  @Autowired
 	  ElectionRepository electionRepository;
 	  
+	  @Autowired
+	  CandidateRepository candidateRepository;
+
 	  //@Autowired
 	  //EntityManager entityManager;
 
 	  @Override
 	  public void run(ApplicationArguments args) {
-		  
-		  createVoter("Charles", "Amper");
-		  createVoter("Mary Joy", "Amper");
-		  createPosition();
-		  createPartyList();
-		  createElection();
+//		  createElection();
+//		  createPosition();
+//		  createPartyList();
+//		  createVoter("Charles", "Amper");
+//		  createVoter("Mary Joy", "Amper");
+//		  createCandidate("Rody", "Duterte", 2, 1);
+//		  createCandidate("Mar", "Roxas", 1, 1);
+//		  createCandidate("Leni", "Robredo", 1, 2);
+//		  createCandidate("Ferdinand", "Marcos", 2, 2);
+		  // vote for candidate
+		  // result
+	  }
+
+	  @Transactional
+	  private void createCandidate(String firstName, String lastName, Integer partyListId, Integer positionId) {
+		  Candidate rody = new Candidate();
+		  rody.setFirstName(firstName);
+		  rody.setLastName(lastName);
+		  PartyList plist = partyListRepository.findById(partyListId).get();
+		  rody.setPartList(plist);
+		  rody.setPosition(positionRepository.findById(positionId).get());
+		  Election p = electionRepository.findById(1).get();
+		  Set<Election> el = new HashSet<>();
+		  el.add(p);
+		  rody.setElections(el);
+		  candidateRepository.save(rody);
 	  }
 
 	  @Transactional
@@ -97,7 +122,7 @@ public class VmsApplication {
 		  User charles = new User();
 		  charles.setFirstName(firstName);
 		  charles.setLastName(lastName);
-		  		  
+
 		  UserRole user = new UserRole();
 		  user.setRole("USER");
 		  user.setUser(charles);
@@ -105,12 +130,12 @@ public class VmsApplication {
 		  UserRole voter = new UserRole();
 		  voter.setRole("VOTER");
 		  voter.setUser(charles);
-		  
+
 		  Set<UserRole> userRoles = new HashSet<>();
 		  userRoles.add(user);
 		  userRoles.add(voter);
 		  charles.setUserRoles(userRoles);
-		  
+
 		  userRepository.save(charles);
 		  //entityManager.flush();
 	  }

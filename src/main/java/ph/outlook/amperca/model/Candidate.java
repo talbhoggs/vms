@@ -39,7 +39,7 @@ public class Candidate {
 	private Position position;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "ELECTION_CADIDATE",
+    @JoinTable(name = "ELECTION_CANDIDATE",
             joinColumns = @JoinColumn(name = "CANDIDATE_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ELECTION_ID", referencedColumnName = "ID"))
 	private Set<Election> elections;
