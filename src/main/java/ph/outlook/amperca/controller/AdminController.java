@@ -11,6 +11,14 @@ public class AdminController {
 	public String createPosition(Model model) {
 		return "create-position";
 	}
+	@GetMapping("/create-party")
+	public String createParty(Model model) {
+		return "create-political-party";
+	}
+	@GetMapping("/create-election")
+	public String createElection(Model model) {
+		return "create-election";
+	}
 	
 	
 }
