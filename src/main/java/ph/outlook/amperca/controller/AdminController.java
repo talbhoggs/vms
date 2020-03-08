@@ -29,4 +29,9 @@ public class AdminController {
 	public String createCandidate(Model model) {
 		return "create-candidate";
 	}
+	
+	@GetMapping("/main")
+	public String mainPage(Model model) {
+		return "main";
+	}
 }
