@@ -13,12 +13,15 @@ public class AdminController {
 	}
 	@GetMapping("/create-party")
 	public String createParty(Model model) {
-		return "create-political-party";
+		return "create-party";
 	}
 	@GetMapping("/create-election")
 	public String createElection(Model model) {
 		return "create-election";
 	}
 	
-	
+	@GetMapping("/create-user")
+	public String createUser(Model model) {
+		return "create-user";
+	}
 }
