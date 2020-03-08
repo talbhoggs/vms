@@ -24,4 +24,9 @@ public class AdminController {
 	public String createUser(Model model) {
 		return "create-user";
 	}
+	
+	@GetMapping("/create-candidate")
+	public String createCandidate(Model model) {
+		return "create-candidate";
+	}
 }
