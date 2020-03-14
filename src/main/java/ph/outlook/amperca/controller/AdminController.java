@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ph.outlook.amperca.model.Election;
 import ph.outlook.amperca.model.PartyList;
 import ph.outlook.amperca.model.Position;
+import ph.outlook.amperca.repository.ElectionRepository;
 import ph.outlook.amperca.repository.PartyListRepository;
 import ph.outlook.amperca.repository.PositionRepository;
 
@@ -24,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	PartyListRepository partyRepository;
+	
+	@Autowired
+	ElectionRepository electionRepository;
 
 	@GetMapping("/create-position")
 	public String showPosition(Model model) {
@@ -70,8 +75,26 @@ public class AdminController {
 
 	@GetMapping("/create-election")
 	public String createElection(Model model) {
+		model.addAttribute("election", new Election());
 		return "create-election";
 	}
+	
+	@PostMapping("/create-election/save")
+	public String createElection(HttpServletRequest request,
+		      					 @ModelAttribute("election") @Valid Election election, 
+		      					 BindingResult result, 
+		      					 Model model) {
+		
+		if (result.hasErrors()) {
+	      return "create-election";
+	    }
+		
+		election.setStatus(true);
+		electionRepository.save(election);
+
+		return "redirect:/create-election?success=true";
+	}
+
 	
 	@GetMapping("/create-user")
 	public String createUser(Model model) {
