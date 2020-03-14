@@ -103,7 +103,7 @@ code {
 			<div class="col-5">
 				<h4 class="mt-5">Create Election Poll</h4>
 				<span class="text-success" th:if="${param.success}">Election poll created successfully!!</span>
-				<form th:action="@{/create-election/save}" th:object="${party}"
+				<form th:action="@{/create-election/save}" th:object="${election}"
 					method="post">
 					<div class="form-group row">
 						<div class="col-sm-9 input-icons">
