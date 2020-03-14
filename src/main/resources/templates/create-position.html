@@ -100,7 +100,6 @@ code {
 		<div class="container">
 			<div class="col-5">
 				<h4 class="mt-5">Create Position</h4>
-				
 				<span class="text-success" th:if="${param.success}">Position create successfully!!</span>
 				<form th:action="@{/create-position/save}" th:object="${position}"
 					method="post">

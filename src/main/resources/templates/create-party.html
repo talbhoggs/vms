@@ -92,7 +92,6 @@ code {
 					<li class="nav-item active"><a class="nav-link" href="#">Sign
 							In <span class="sr-only">(current)</span>
 					</a></li>
-					</li>
 				</ul>
 			</div>
 		</nav>
@@ -102,12 +101,14 @@ code {
 
 			<div class="col-5">
 				<h4 class="mt-5">Create Political Party</h4>
-				<form th:action="@{/login/submit}" method="post">
+				<span class="text-success" th:if="${param.success}">Party created successfully!!</span>
+				<form th:action="@{/create-party/save}" th:object="${party}"
+					method="post">
 					<div class="form-group row">
 						<div class="col-sm-9 input-icons">
-							<i class="fa fa-university icon"></i></i><input type="text"
-								class="form-control input-field" id="username" name="username"
-								placeholder="~">
+							<i class="fa fa-university icon"></i><input type="text"
+								class="form-control input-field" id="username" name="username" th:field="*{name}" >
+								<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -115,7 +116,6 @@ code {
 							<button type="submit" class="btn btn-primary">Save</button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>
