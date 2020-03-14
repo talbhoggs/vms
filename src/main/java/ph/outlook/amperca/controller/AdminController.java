@@ -89,6 +89,7 @@ public class AdminController {
 	      return "create-election";
 	    }
 		
+		election.setStatus(true);
 		electionRepository.save(election);
 
 		return "redirect:/create-election?success=true";
