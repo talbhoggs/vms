@@ -92,22 +92,23 @@ code {
 					<li class="nav-item active"><a class="nav-link" href="#">Sign
 							In <span class="sr-only">(current)</span>
 					</a></li>
-					</li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 	<main role="main" class="flex-shrink-0">
 		<div class="container">
-
 			<div class="col-5">
 				<h4 class="mt-5">Create Position</h4>
-				<form th:action="@{/login/submit}" method="post">
+				
+				<span class="text-success" th:if="${param.success}">Position create successfully!!</span>
+				<form th:action="@{/create-position/save}" th:object="${position}"
+					method="post">
 					<div class="form-group row">
 						<div class="col-sm-9 input-icons">
-							<i class="fa fa-university icon"></i></i><input type="text"
-								class="form-control input-field" id="username" name="username"
-								placeholder="~">
+							<i class="fa fa-university icon"></i><input type="text"
+								class="form-control input-field" id="username" name="username" th:field="*{name}" >
+								<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -115,7 +116,6 @@ code {
 							<button type="submit" class="btn btn-primary">Save</button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>
