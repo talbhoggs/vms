@@ -1,6 +1,7 @@
 package ph.outlook.amperca;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -61,12 +62,19 @@ public class VmsApplication {
 //		  createElection();
 //		  createPosition();
 //		  createPartyList();
-//		  createVoter("Charles", "Amper");
-//		  createVoter("Mary Joy", "Amper");
+//		  createVoter("Charles", "Amper", "amperca@ph.ibm.com", "password1");
+//		  createVoter("Mary Joy", "Amper", "maryjoy@gmail.com", "password1");
 //		  createCandidate("Rody", "Duterte", 2, 1);
 //		  createCandidate("Mar", "Roxas", 1, 1);
 //		  createCandidate("Leni", "Robredo", 1, 2);
 //		  createCandidate("Ferdinand", "Marcos", 2, 2);
+		  
+		  //for( UserRole.ROLE role : UserRole.ROLE.values()) {
+		//	  System.out.println(role.name() + " " + role.getRoleId());
+		 // }
+		  
+		
+		  
 		  // vote for candidate
 		  // result
 	  }
@@ -118,17 +126,21 @@ public class VmsApplication {
 	  }
 
 	  @Transactional
-	  private void createVoter(String firstName, String lastName) {
+	  private void createVoter(String firstName, String lastName, String email, String password) {
 		  User charles = new User();
 		  charles.setFirstName(firstName);
 		  charles.setLastName(lastName);
+		  
+		  charles.setEmail(email);
+		  charles.setPassword(password);
 
 		  UserRole user = new UserRole();
-		  user.setRole("USER");
+		  user.setRole(UserRole.ROLE.USER.name());
 		  user.setUser(charles);
-
+		  
+		
 		  UserRole voter = new UserRole();
-		  voter.setRole("VOTER");
+		  voter.setRole(UserRole.ROLE.VOTER.name());
 		  voter.setUser(charles);
 
 		  Set<UserRole> userRoles = new HashSet<>();

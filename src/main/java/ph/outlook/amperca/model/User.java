@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -39,6 +40,16 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	//@JsonManagedReference
     private Set<UserRole> userRoles;
+	
+	@Column(name = "EMAIL", unique = true)
+    @NotNull
+    @Size(min=3, max = 100, message = "field length must be in between 3 to 100 characters")
+    private String email;
+	
+	@Column(name = "PASSWORD")
+    @NotNull
+    @Size(min=3, max = 100, message = "field length must be in between 3 to 100 characters")
+    private String password;
 
 	@Column(name = "CREATED", insertable = false)
 	private Timestamp created;
@@ -79,6 +90,18 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public Timestamp getCreated() {
 		return created;
 	}
