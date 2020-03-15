@@ -21,6 +21,20 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity(name="USER_ROLE")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserRole {
+	
+	public enum ROLE {
+		USER(1), VOTER(2), ADMIN(3);
+		
+		private Integer roleId;
+
+		ROLE(int roleId) {
+			this.roleId = roleId;
+		}
+		
+		public Integer getRoleId() {
+			return this.roleId;
+		}
+	}
 
     @Column(name = "ID")
     @Id
