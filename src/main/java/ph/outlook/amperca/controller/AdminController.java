@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ph.outlook.amperca.model.Candidate;
+import ph.outlook.amperca.model.CandidateRequestModel;
 import ph.outlook.amperca.model.Election;
 import ph.outlook.amperca.model.PartyList;
 import ph.outlook.amperca.model.Position;
 import ph.outlook.amperca.model.User;
 import ph.outlook.amperca.model.UserRole;
+import ph.outlook.amperca.repository.CandidateRepository;
 import ph.outlook.amperca.repository.ElectionRepository;
 import ph.outlook.amperca.repository.PartyListRepository;
 import ph.outlook.amperca.repository.PositionRepository;
@@ -39,6 +42,9 @@ public class AdminController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	CandidateRepository candidateRepository;
 
 	@GetMapping("/create-position")
 	public String showPosition(Model model) {
@@ -127,9 +133,35 @@ public class AdminController {
 	}
 
 	@GetMapping("/create-candidate")
-	public String createCandidate(Model model) {
+	public String showCandidate(Model model) {
+		initializeForm(model);
 		return "create-candidate";
 	}
+	
+	@PostMapping("/create-candidate/save")
+	@Transactional
+	public String createCandidate(HttpServletRequest request, @ModelAttribute("candidate") @Valid CandidateRequestModel candidate,
+			BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			initializeForm(model);
+			return "create-candidate";
+		}
+		/* TODO: 
+		 * 
+		 * Position and Election fields
+		 * */
+
+		//candidateRepository.save(candidate);
+
+		return "redirect:/create-candidate?success=true";
+	}
+
+	private void initializeForm(Model model) {
+		model.addAttribute("candidate", new CandidateRequestModel());
+		model.addAttribute("partyList", partyRepository.findAll());
+	}
+
 
 	@GetMapping("/main")
 	public String mainPage(Model model) {
