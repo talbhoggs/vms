@@ -93,7 +93,6 @@ code {
 					<li class="nav-item active"><a class="nav-link" href="#">Sign
 							In <span class="sr-only">(current)</span>
 					</a></li>
-					</li>
 				</ul>
 			</div>
 		</nav>
@@ -103,18 +102,26 @@ code {
 
 			<div class="col-5">
 				<h4 class="mt-5">Create Candidate</h4>
-				<form th:action="@{/login/submit}" method="post">
+				<span class="text-success" th:if="${param.success}">Candidate
+					created successfully!!</span>
+				<form th:action="@{/create-candidate/save}" method="post"
+					th:object="${candidate}">
 					<div class="form-group row">
 						<div class="col-sm-9 input-icons">
 							<i class="fa fa-user icon"></i><input type="text"
-								class="form-control input-field" id="username" name="username"
-								placeholder="First Name">
+								class="form-control input-field" id="firstName" name="firstName"
+								th:field="*{firstName}" placeholder="First Name"> <span
+								class="text-danger" th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}"></span>
 						</div>
 						<div class="col-sm-9 input-icons">
 							<i class="fa fa-user icon"></i><input type="text"
-								class="form-control input-field" id="username" name="username"
-								placeholder="Last Name">
+								class="form-control input-field" id="lastName" name="lastName"
+								th:field="*{lastName}" placeholder="Last Name"> <span
+								class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+								th:errors="*{lastName}"></span>
 						</div>
+						<!--
 						<div class="col-sm-9 input-icons">
 							<select id="inputState" class="form-control">
 								<option selected>Election</option>
@@ -135,8 +142,15 @@ code {
 								<option value="1">President</option>
 								<option value="2">Vice President</option>
 							</select>
+						 -->
+						<div class="col-sm-9 input-icons">
+							<select name="planet" th:field="*{partyId}" class="form-control">
+								<option value="">-- Select Political Party --</option>
+								<option th:each="party : ${partyList}" th:value="${party.id}"
+									th:text="${party.name}"></option>
+							</select> <span class="text-danger"
+								th:if="${#fields.hasErrors('partyId')}" th:errors="*{partyId}"></span>
 						</div>
-
 					</div>
 					<div class="form-group">
 						<div class="float-left">
