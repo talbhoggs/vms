@@ -1,5 +1,6 @@
 package ph.outlook.amperca.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +42,10 @@ public class AdminController {
 
 	@Autowired
 	ElectionRepository electionRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	CandidateRepository candidateRepository;
 
@@ -109,11 +112,11 @@ public class AdminController {
 		model.addAttribute("user", new User());
 		return "create-user";
 	}
-	
+
 	@PostMapping("/create-user/save")
 	@Transactional
-	public String createUser(HttpServletRequest request, @ModelAttribute("user") @Valid User user,
-			BindingResult result, Model model) {
+	public String createUser(HttpServletRequest request, @ModelAttribute("user") @Valid User user, BindingResult result,
+			Model model) {
 
 		if (result.hasErrors()) {
 			return "create-user";
@@ -137,22 +140,41 @@ public class AdminController {
 		initializeForm(model);
 		return "create-candidate";
 	}
-	
+
 	@PostMapping("/create-candidate/save")
 	@Transactional
-	public String createCandidate(HttpServletRequest request, @ModelAttribute("candidate") @Valid CandidateRequestModel candidate,
-			BindingResult result, Model model) {
+	public String createCandidate(HttpServletRequest request,
+			@ModelAttribute("candidate") @Valid CandidateRequestModel candidateModel, BindingResult result,
+			Model model) {
 
 		if (result.hasErrors()) {
-			initializeForm(model);
+			// initializeForm(model);
+			model.addAttribute("partyList", partyRepository.findAll());
+			model.addAttribute("positions", positionRepository.findAll());
+			model.addAttribute("elections", electionRepository.findAll());
 			return "create-candidate";
 		}
-		/* TODO: 
-		 * 
-		 * Position and Election fields
-		 * */
 
-		//candidateRepository.save(candidate);
+		Candidate candidate = new Candidate();
+		candidate.setPartList(partyRepository.findById(candidateModel.getPartyId()).get());
+		candidate.setPosition(positionRepository.findById(candidateModel.getPositionId()).get());
+		candidate.setElection(electionRepository.findById(candidateModel.getElectionId()).get());
+
+		try {
+			BeanUtils.copyProperties(candidate, candidateModel);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * TODO:
+		 *
+		 * Election fields
+		 */
+
+		candidateRepository.save(candidate);
 
 		return "redirect:/create-candidate?success=true";
 	}
@@ -160,8 +182,9 @@ public class AdminController {
 	private void initializeForm(Model model) {
 		model.addAttribute("candidate", new CandidateRequestModel());
 		model.addAttribute("partyList", partyRepository.findAll());
+		model.addAttribute("positions", positionRepository.findAll());
+		model.addAttribute("elections", electionRepository.findAll());
 	}
-
 
 	@GetMapping("/main")
 	public String mainPage(Model model) {

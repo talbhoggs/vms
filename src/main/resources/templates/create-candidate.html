@@ -144,6 +144,26 @@ code {
 							</select>
 						 -->
 						<div class="col-sm-9 input-icons">
+							<select name="planet" th:field="*{electionId}"
+								class="form-control">
+								<option value="">-- Select Election Poll --</option>
+								<option th:each="election : ${elections}"
+									th:value="${election.id}" th:text="${election.name}"></option>
+							</select> <span class="text-danger"
+								th:if="${#fields.hasErrors('electionId')}"
+								th:errors="*{electionId}"></span>
+						</div>
+						<div class="col-sm-9 input-icons">
+							<select name="planet" th:field="*{positionId}"
+								class="form-control">
+								<option value="">-- Select Position --</option>
+								<option th:each="position : ${positions}"
+									th:value="${position.id}" th:text="${position.name}"></option>
+							</select> <span class="text-danger"
+								th:if="${#fields.hasErrors('positionId')}"
+								th:errors="*{positionId}"></span>
+						</div>
+						<div class="col-sm-9 input-icons">
 							<select name="planet" th:field="*{partyId}" class="form-control">
 								<option value="">-- Select Political Party --</option>
 								<option th:each="party : ${partyList}" th:value="${party.id}"

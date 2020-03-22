@@ -32,124 +32,115 @@ public class VmsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VmsApplication.class, args);
 	}
-	
+
 	@Component
 	class App implements ApplicationRunner {
-	  
-	  @Autowired
-	  UserRepository userRepository;
-	  
-	  @Autowired
-	  UserRoleRepository userRoleRepository;
 
-	  @Autowired
-	  PartyListRepository partyListRepository;
+		@Autowired
+		UserRepository userRepository;
 
-	  @Autowired
-	  PositionRepository positionRepository;
+		@Autowired
+		UserRoleRepository userRoleRepository;
 
-	  @Autowired
-	  ElectionRepository electionRepository;
-	  
-	  @Autowired
-	  CandidateRepository candidateRepository;
+		@Autowired
+		PartyListRepository partyListRepository;
 
-	  //@Autowired
-	  //EntityManager entityManager;
+		@Autowired
+		PositionRepository positionRepository;
 
-	  @Override
-	  public void run(ApplicationArguments args) {
-//		  createElection();
-//		  createPosition();
-//		  createPartyList();
-//		  createVoter("Charles", "Amper", "amperca@ph.ibm.com", "password1");
-//		  createVoter("Mary Joy", "Amper", "maryjoy@gmail.com", "password1");
-//		  createCandidate("Rody", "Duterte", 2, 1);
-//		  createCandidate("Mar", "Roxas", 1, 1);
-//		  createCandidate("Leni", "Robredo", 1, 2);
-//		  createCandidate("Ferdinand", "Marcos", 2, 2);
-		  
-		  //for( UserRole.ROLE role : UserRole.ROLE.values()) {
-		//	  System.out.println(role.name() + " " + role.getRoleId());
-		 // }
-		  
-		
-		  
-		  // vote for candidate
-		  // result
-	  }
+		@Autowired
+		ElectionRepository electionRepository;
 
-	  @Transactional
-	  private void createCandidate(String firstName, String lastName, Integer partyListId, Integer positionId) {
-		  Candidate rody = new Candidate();
-		  rody.setFirstName(firstName);
-		  rody.setLastName(lastName);
-		  PartyList plist = partyListRepository.findById(partyListId).get();
-		  rody.setPartList(plist);
-		  rody.setPosition(positionRepository.findById(positionId).get());
-		  Election p = electionRepository.findById(1).get();
-		  Set<Election> el = new HashSet<>();
-		  el.add(p);
-		  rody.setElections(el);
-		  candidateRepository.save(rody);
-	  }
+		@Autowired
+		CandidateRepository candidateRepository;
 
-	  @Transactional
-	  private void createElection() {
-		  Election presidential2016 = new Election();
-				  presidential2016.setName("Presidential Election 2016");
-				  presidential2016.setStatus(true);
-		  electionRepository.save(presidential2016);
-	  }
+		// @Autowired
+		// EntityManager entityManager;
 
-	  @Transactional
-	  private void createPosition() {
-		  Position president = new Position();
-		  president.setName("President");
-		  Position vicePresident = new Position();
-		  vicePresident.setName("Vice President");
-		  Position secretary = new Position();
-		  secretary.setName("Secretary");
-		  positionRepository.save(president);
-		  positionRepository.save(vicePresident);
-		  positionRepository.save(secretary);
-	  }
+		@Override
+		public void run(ApplicationArguments args) {
+//			createElection();
+//			createPosition();
+//			createPartyList();
+//			createVoter("Charles", "Amper", "amperca@ph.ibm.com", "password1");
+//			createVoter("Mary Joy", "Amper", "maryjoy@gmail.com", "password1");
+//			createCandidate("Rody", "Duterte", 2, 1, 1);
+//			createCandidate("Mar", "Roxas", 1, 1, 1);
+//			createCandidate("Leni", "Robredo", 1, 2, 1);
+//			createCandidate("Ferdinand", "Marcos", 2, 2, 1);
 
-	  @Transactional
-	  private void createPartyList() {
-		  PartyList lp = new PartyList();
-		  lp.setName("Liberal Party");
-		  PartyList pdp = new PartyList();
-		  pdp.setName("PDP Laban");
-		  partyListRepository.save(lp);
-		  partyListRepository.save(pdp);
-	  }
+		}
 
-	  @Transactional
-	  private void createVoter(String firstName, String lastName, String email, String password) {
-		  User charles = new User();
-		  charles.setFirstName(firstName);
-		  charles.setLastName(lastName);
-		  
-		  charles.setEmail(email);
-		  charles.setPassword(password);
+		@Transactional
+		private void createCandidate(String firstName, String lastName, Integer partyListId, Integer positionId,
+				Integer electionId) {
+			Candidate rody = new Candidate();
+			rody.setFirstName(firstName);
+			rody.setLastName(lastName);
+			PartyList plist = partyListRepository.findById(partyListId).get();
+			rody.setPartList(plist);
+			rody.setPosition(positionRepository.findById(positionId).get());
+			Election p = electionRepository.findById(electionId).get();
 
-		  UserRole user = new UserRole();
-		  user.setRole(UserRole.ROLE.USER.name());
-		  user.setUser(charles);
-		  
-		
-		  UserRole voter = new UserRole();
-		  voter.setRole(UserRole.ROLE.VOTER.name());
-		  voter.setUser(charles);
+			rody.setElection(p);
+			candidateRepository.save(rody);
+		}
 
-		  Set<UserRole> userRoles = new HashSet<>();
-		  userRoles.add(user);
-		  userRoles.add(voter);
-		  charles.setUserRoles(userRoles);
+		@Transactional
+		private void createElection() {
+			Election presidential2016 = new Election();
+			presidential2016.setName("Presidential Election 2016");
+			presidential2016.setStatus(true);
+			electionRepository.save(presidential2016);
+		}
 
-		  userRepository.save(charles);
-		  //entityManager.flush();
-	  }
+		@Transactional
+		private void createPosition() {
+			Position president = new Position();
+			president.setName("President");
+			Position vicePresident = new Position();
+			vicePresident.setName("Vice President");
+			Position secretary = new Position();
+			secretary.setName("Secretary");
+			positionRepository.save(president);
+			positionRepository.save(vicePresident);
+			positionRepository.save(secretary);
+		}
+
+		@Transactional
+		private void createPartyList() {
+			PartyList lp = new PartyList();
+			lp.setName("Liberal Party");
+			PartyList pdp = new PartyList();
+			pdp.setName("PDP Laban");
+			partyListRepository.save(lp);
+			partyListRepository.save(pdp);
+		}
+
+		@Transactional
+		private void createVoter(String firstName, String lastName, String email, String password) {
+			User charles = new User();
+			charles.setFirstName(firstName);
+			charles.setLastName(lastName);
+
+			charles.setEmail(email);
+			charles.setPassword(password);
+
+			UserRole user = new UserRole();
+			user.setRole(UserRole.ROLE.USER.name());
+			user.setUser(charles);
+
+			UserRole voter = new UserRole();
+			voter.setRole(UserRole.ROLE.VOTER.name());
+			voter.setUser(charles);
+
+			Set<UserRole> userRoles = new HashSet<>();
+			userRoles.add(user);
+			userRoles.add(voter);
+			charles.setUserRoles(userRoles);
+
+			userRepository.save(charles);
+			// entityManager.flush();
+		}
 	}
 }
