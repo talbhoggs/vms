@@ -18,91 +18,91 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Entity(name="USER_ROLE")
+@Entity(name = "USER_ROLE")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserRole {
-	
-	public enum ROLE {
-		USER(1), VOTER(2), ADMIN(3);
-		
-		private Integer roleId;
 
-		ROLE(int roleId) {
-			this.roleId = roleId;
-		}
-		
-		public Integer getRoleId() {
-			return this.roleId;
-		}
-	}
+    public enum ROLE {
+        USER(1), VOTER(2), ADMIN(3);
+
+        private Integer roleId;
+
+        ROLE(int roleId) {
+            this.roleId = roleId;
+        }
+
+        public Integer getRoleId() {
+            return this.roleId;
+        }
+    }
 
     @Column(name = "ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "ROLE", unique = true)
     @NotNull
     @Size(max = 100, message = "field length must not exceed 100 characters")
     private String role;
     /*
-     * http://keenformatics.blogspot.com/2013/08/how-to-solve-json-infinite-recursion.html
+     * http://keenformatics.blogspot.com/2013/08/how-to-solve-json-infinite-
+     * recursion.html
      */
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-    //@JsonBackReference
+    // @JsonBackReference
     private User user;
 
     @Column(name = "CREATED", insertable = false)
     private Timestamp created;
-    
+
     @Column(name = "LAST_UPDATED", insertable = false)
     private Timestamp lastUpdated;
 
     public User getUser() {
-		return user;
-	}
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public Timestamp getCreated() {
+        return created;
+    }
 
-	public Timestamp getCreated() {
-		return created;
-	}
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
 
-	public void setCreated(Timestamp created) {
-		this.created = created;
-	}
+    public Timestamp getLastUpdated() {
+        return lastUpdated;
+    }
 
-	public Timestamp getLastUpdated() {
-		return lastUpdated;
-	}
+    public void setLastUpdated(Timestamp lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 
-	public void setLastUpdated(Timestamp lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
-
-	@Override
-	public String toString() {
-		return "UserRole [id=" + id + ", role=" + role + ", created=" + created + ", lastUpdated=" + lastUpdated + "]";
-	}
+    @Override
+    public String toString() {
+        return "UserRole [id=" + id + ", role=" + role + ", created=" + created + ", lastUpdated=" + lastUpdated + "]";
+    }
 
 }
