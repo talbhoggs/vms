@@ -54,4 +54,9 @@ public class UserController {
         return electionRepository.findAll();
     }
 
+    @RequestMapping(value = "/current-elections", method = GET, produces = APPLICATION_JSON_VALUE)
+    public Election findCurrentElection() {
+        return electionRepository.findCurrentElection();
+    }
+
 }

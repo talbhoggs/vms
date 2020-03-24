@@ -180,8 +180,4 @@ public class AdminController {
         model.addAttribute("elections", electionRepository.findAll());
     }
 
-    @GetMapping("/main")
-    public String mainPage(Model model) {
-        return "main";
-    }
 }

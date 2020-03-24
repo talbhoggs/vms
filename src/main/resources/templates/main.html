@@ -102,7 +102,15 @@ code {
 		<div class="container">
 
 			<div class="col-5">
-				<h5 class="mt-5">President</h5>
+				<h5 class="mt-5" th:text="${election.name}"></h5>
+
+
+
+
+				<div th:each="candidate : ${election.candidates}">
+					<h5 class="mt-5" th:text="${candidate.position.name}"></h5>
+				</div>
+				<!--
 				<table class="table">
 					<tbody>
 						<tr>
@@ -140,7 +148,7 @@ code {
 					</tbody>
 				</table>
 				
-				
+				 -->
 				<div class="form-group">
 					<div class="float-left">
 						<button type="submit" class="btn btn-primary">Submit Vote</button>
