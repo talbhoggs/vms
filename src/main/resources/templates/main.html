@@ -102,53 +102,21 @@ code {
 		<div class="container">
 
 			<div class="col-5">
-				<h5 class="mt-5" th:text="${election.name}"></h5>
-
-
-
-
-				<div th:each="candidate : ${election.candidates}">
-					<h5 class="mt-5" th:text="${candidate.position.name}"></h5>
+				<h5 class="mt-5" th:text="${election.electionName}"></h5>
+				<div th:each="position : ${election.positions}">
+					<h5 class="mt-5" th:text="${position.position}"></h5>
+					<table class="table">
+						<tbody>
+							<tr th:each="candidate : ${position.candidates}">
+								<th th:text="${candidate.id}" scope="row">1</th>
+								<td th:text="${candidate.firstName}"></td>
+								<td th:text="${candidate.lastName}"></td>
+								<td><input type="radio" id="customRadio11"
+									name="customRadio1" /></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<!--
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Rody</td>
-							<td>Duterte</td>
-							<td><input type="radio" id="customRadio11" name="customRadio1" /></td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Mar</td>
-							<td>Roxas</td>
-							<td><input type="radio" id="customRadio11" name="customRadio1" /></td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<h5 class="mt-5">Vice President</h5>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Leni</td>
-							<td>Robredo</td>
-							<td>
-							<input type="radio" id="customRadio1" name="customRadio" />
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Bongbong</td>
-							<td>Marcos</td>
-							<td><input type="radio" id="customRadio1" name="customRadio" /></td>
-						</tr>
-					</tbody>
-				</table>
-				
-				 -->
 				<div class="form-group">
 					<div class="float-left">
 						<button type="submit" class="btn btn-primary">Submit Vote</button>
