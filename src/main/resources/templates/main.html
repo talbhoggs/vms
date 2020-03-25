@@ -102,17 +102,17 @@ code {
 		<div class="container">
 
 			<div class="col-5">
-				<h5 class="mt-5" th:text="${election.electionName}"></h5>
+				<h4 class="mt-5" th:text="${election.electionName}"></h4>
 				<div th:each="position : ${election.positions}">
-					<h5 class="mt-5" th:text="${position.position}"></h5>
+					<h5 class="mt-4" th:text="${position.position}"></h5>
 					<table class="table">
 						<tbody>
-							<tr th:each="candidate : ${position.candidates}">
-								<th th:text="${candidate.id}" scope="row">1</th>
+							<tr th:each="candidate, state: ${position.candidates}">
+								<th th:text="${state.count}" scope="row"></th>
 								<td th:text="${candidate.firstName}"></td>
 								<td th:text="${candidate.lastName}"></td>
-								<td><input type="radio" id="customRadio11"
-									name="customRadio1" /></td>
+								<td th:text="${candidate.partList.name}"></td>
+								<td><input type="radio" th:name="'radio-' + ${candidate.position.name}" /></td>
 							</tr>
 						</tbody>
 					</table>
