@@ -112,7 +112,8 @@ code {
 								<td th:text="${candidate.firstName}"></td>
 								<td th:text="${candidate.lastName}"></td>
 								<td th:text="${candidate.partList.name}"></td>
-								<td><input type="radio" th:name="'radio-' + ${candidate.position.name}" /></td>
+								<td><input th:id="${candidate.id}" type="radio"
+									th:name="'radio-' + ${candidate.position.name}" /></td>
 							</tr>
 						</tbody>
 					</table>
