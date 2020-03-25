@@ -77,8 +77,8 @@ public class VmsApplication {
 //			createCandidate("Leni", "Robredo", 1, 2, 1);
 //			createCandidate("Ferdinand", "Marcos", 2, 2, 1);
 
-            vote(1, 1, 1);
-            vote(1, 1, 3);
+            //vote(1, 1, 1);
+            //vote(1, 1, 3);
         }
 
         private void vote(Integer userId, Integer electionId, Integer candidateId) {
