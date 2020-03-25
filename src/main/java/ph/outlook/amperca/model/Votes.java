@@ -3,6 +3,7 @@ package ph.outlook.amperca.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Votes {
 
     @Column(name = "ID")
@@ -22,8 +24,12 @@ public class Votes {
     private Candidate candidate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VOTER_ID")
-    private Voter voter;
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ELECTION_ID")
+    private Election election;
 
     @Column(name = "CREATED", insertable = false)
     private Timestamp created;
@@ -47,12 +53,12 @@ public class Votes {
         this.candidate = candidate;
     }
 
-    public Voter getVoter() {
-        return voter;
+    public User getUser() {
+        return user;
     }
 
-    public void setVoter(Voter voter) {
-        this.voter = voter;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Timestamp getCreated() {
@@ -73,7 +79,15 @@ public class Votes {
 
     @Override
     public String toString() {
-        return "Votes [id=" + id + ", candidate=" + candidate + ", voter=" + voter + ", created=" + created
+        return "Votes [id=" + id + ", candidate=" + candidate + ", voter=" + user + ", created=" + created
                 + ", lastUpdated=" + lastUpdated + "]";
+    }
+
+    public Election getElection() {
+        return election;
+    }
+
+    public void setElection(Election election) {
+        this.election = election;
     }
 }

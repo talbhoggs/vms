@@ -20,12 +20,14 @@ import ph.outlook.amperca.model.PartyList;
 import ph.outlook.amperca.model.Position;
 import ph.outlook.amperca.model.User;
 import ph.outlook.amperca.model.UserRole;
+import ph.outlook.amperca.model.Votes;
 import ph.outlook.amperca.repository.CandidateRepository;
 import ph.outlook.amperca.repository.ElectionRepository;
 import ph.outlook.amperca.repository.PartyListRepository;
 import ph.outlook.amperca.repository.PositionRepository;
 import ph.outlook.amperca.repository.UserRepository;
 import ph.outlook.amperca.repository.UserRoleRepository;
+import ph.outlook.amperca.repository.VotesRepository;
 
 @SpringBootApplication
 @ComponentScan("ph.outlook.amperca")
@@ -57,6 +59,9 @@ public class VmsApplication {
         @Autowired
         CandidateRepository candidateRepository;
 
+        @Autowired
+        VotesRepository votesRepository;
+
         // @Autowired
         // EntityManager entityManager;
 
@@ -72,6 +77,22 @@ public class VmsApplication {
 //			createCandidate("Leni", "Robredo", 1, 2, 1);
 //			createCandidate("Ferdinand", "Marcos", 2, 2, 1);
 
+            vote(1, 1, 1);
+            vote(1, 1, 3);
+        }
+
+        private void vote(Integer userId, Integer electionId, Integer candidateId) {
+            User charles = userRepository.findById(userId).get();
+            Election e = electionRepository.findById(electionId).get();
+
+            Candidate c = candidateRepository.findById(candidateId).get();
+
+            Votes vote = new Votes();
+            vote.setCandidate(c);
+            vote.setElection(e);
+            vote.setUser(charles);
+
+            votesRepository.save(vote);
         }
 
         @Transactional

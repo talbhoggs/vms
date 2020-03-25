@@ -33,28 +33,6 @@ public class LoginController {
 
     @GetMapping("/main")
     public String mainPage(Model model) {
-
-        Election election = electionRepository.findCurrentElection();
-        HashMap<String, List<Candidate>> aggregatedCandidates = new HashMap<>();
-        List<CandidateResponseModel> response = new ArrayList<>();
-        for (Candidate candidate : election.getCandidates()) {
-            if (aggregatedCandidates.containsKey(candidate.getPosition().getName())) {
-                aggregatedCandidates.get(candidate.getPosition().getName()).add(candidate);
-            } else {
-                List<Candidate> candidates = new ArrayList<>();
-                candidates.add(candidate);
-                aggregatedCandidates.put(candidate.getPosition().getName(), candidates);
-            }
-        }
-
-        for (String key : aggregatedCandidates.keySet()) {
-            List<Candidate> candidates = aggregatedCandidates.get(key);
-            CandidateResponseModel c = new CandidateResponseModel();
-            c.setCandidates(candidates);
-            c.setPosition(candidates.get(0).getPosition().getName());
-            response.add(c);
-        }
-
         model.addAttribute("election", getAggregatedCandidate());
         return "main";
     }
@@ -64,6 +42,7 @@ public class LoginController {
         HashMap<String, List<Candidate>> aggregatedCandidates = new HashMap<>();
         List<CandidateResponseModel> candidateResponse = new ArrayList<>();
 
+        // aggregate candidates by position
         for (Candidate candidate : election.getCandidates()) {
             if (aggregatedCandidates.containsKey(candidate.getPosition().getName())) {
                 aggregatedCandidates.get(candidate.getPosition().getName()).add(candidate);
@@ -73,7 +52,7 @@ public class LoginController {
                 aggregatedCandidates.put(candidate.getPosition().getName(), candidates);
             }
         }
-
+        // create candidate response model
         for (String key : aggregatedCandidates.keySet()) {
             List<Candidate> candidates = aggregatedCandidates.get(key);
 
@@ -86,6 +65,7 @@ public class LoginController {
             candidateResponse.add(c);
         }
 
+        // create electionReponse model
         ElectionResponseModel results = new ElectionResponseModel();
         results.setElectionName(election.getName());
         results.setPositions(candidateResponse);
