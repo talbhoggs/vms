@@ -77,12 +77,6 @@ public class Votes {
         this.lastUpdated = lastUpdated;
     }
 
-    @Override
-    public String toString() {
-        return "Votes [id=" + id + ", candidate=" + candidate + ", voter=" + user + ", created=" + created
-                + ", lastUpdated=" + lastUpdated + "]";
-    }
-
     public Election getElection() {
         return election;
     }
@@ -90,4 +84,11 @@ public class Votes {
     public void setElection(Election election) {
         this.election = election;
     }
+
+    @Override
+    public String toString() {
+        return "Votes [id=" + id + ", candidate=" + candidate + ", voter=" + user + ", created=" + created
+                + ", lastUpdated=" + lastUpdated + "]";
+    }
+
 }
