@@ -24,6 +24,7 @@ import ph.outlook.amperca.repository.ElectionRepository;
 import ph.outlook.amperca.repository.UserRepository;
 
 @RestController
+@RequestMapping(value = "/api")
 public class UserController {
 
     @Autowired

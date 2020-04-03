@@ -26,9 +26,9 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/login")
     public String index(Model model) {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/main")
