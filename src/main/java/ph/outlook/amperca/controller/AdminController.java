@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import ph.outlook.amperca.model.Candidate;
 import ph.outlook.amperca.model.CandidateRequestModel;
@@ -32,6 +33,7 @@ import ph.outlook.amperca.repository.PositionRepository;
 import ph.outlook.amperca.repository.UserRepository;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
