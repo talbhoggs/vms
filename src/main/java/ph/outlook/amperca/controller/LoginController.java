@@ -21,11 +21,6 @@ public class LoginController {
     @Autowired
     private ElectionRepository electionRepository;
 
-    @GetMapping("/")
-    public String login(Model model) {
-        return "login";
-    }
-
     @GetMapping("/login")
     public String index(Model model) {
         return "login";
