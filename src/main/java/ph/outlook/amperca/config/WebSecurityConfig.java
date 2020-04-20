@@ -3,6 +3,7 @@ package ph.outlook.amperca.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -45,5 +46,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncouEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+      web.ignoring().antMatchers("/**/*.html", "/**/*.css", "/**/*.js",
+          "/**/*.{png,jpg,jpeg,svg.ico}");
+
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+      return new BCryptPasswordEncoder();
     }
 }
