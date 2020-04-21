@@ -2,6 +2,7 @@ package ph.outlook.amperca.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,6 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 password(passwordEncouEncoder().encode("password")).
                                 roles("ADMIN").build();
         return new InMemoryUserDetailsManager(amperca, admin);
+    }
+
+    @Bean
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+      return authenticationManager();
     }
 
     @Bean
