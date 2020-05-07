@@ -37,11 +37,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             username("amperca").
                             password(passwordEncouEncoder().encode("password")).
                             roles("VOTER").build();
+        UserDetails joy = User.builder().
+                username("amperca").
+                password(passwordEncouEncoder().encode("password")).
+                roles("VOTER").build();
         UserDetails admin = User.builder().
                                 username("admin").
                                 password(passwordEncouEncoder().encode("password")).
                                 roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(amperca, admin);
+        return new InMemoryUserDetailsManager(amperca, admin, joy);
     }
 
     @Bean
