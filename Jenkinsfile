@@ -1,11 +1,7 @@
 node {
    stage('Git Checkout') { // for display purposes
-   		
-   		withEnv() {
-   			def gitBranch = env.BRANCH.trim()
-   			git branch: gitBranch, url: 'git@github.com:talbhoggs/vms.git'
-   		}
-   		
+		def gitBranch = env.BRANCH.trim()
+		git branch: gitBranch, url: 'git@github.com:talbhoggs/vms.git'
    }
    
    stage('Compile Package') {
