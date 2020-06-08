@@ -1,6 +1,6 @@
 node {
    stage('Git Checkout') { // for display purposes
-    	git 'https://github.com/talbhoggs/vms'
+    	git 'https://github.com/talbhoggs/vms', env.BRANCH.trim()
    }
    
    stage('Compile Package') {
