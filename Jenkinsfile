@@ -1,6 +1,8 @@
 node {
    stage('Git Checkout') { // for display purposes
    		def gitBranch = env.BRANCH.trim()
+   		
+   		echo gitBranch
    		git branch: gitBranch, url: 'git@github.com:talbhoggs/vms.git'
    }
    
