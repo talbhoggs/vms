@@ -1,6 +1,6 @@
 node {
    stage('Git Checkout') { // for display purposes
-    	git url : 'https://github.com/talbhoggs/vms', branch : env.BRANCH.trim()
+    	git url : 'https://github.com/talbhoggs/vms', branch : "${env.BRANCH}"
    }
    
    stage('Compile Package') {
