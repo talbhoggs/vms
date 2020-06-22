@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*
         http.csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/**").hasRole("ADMIN")
@@ -27,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             //.and().formLogin().loginPage("/login");
             .and().formLogin().loginPage("/login").permitAll();
+            */
     }
 
     @Override
@@ -38,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             password(passwordEncouEncoder().encode("password")).
                             roles("VOTER").build();
         UserDetails joy = User.builder().
-                username("amperca").
+                username("joy").
                 password(passwordEncouEncoder().encode("password")).
                 roles("VOTER").build();
         UserDetails admin = User.builder().
@@ -65,8 +67,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-      return new BCryptPasswordEncoder();
-    }
 }
